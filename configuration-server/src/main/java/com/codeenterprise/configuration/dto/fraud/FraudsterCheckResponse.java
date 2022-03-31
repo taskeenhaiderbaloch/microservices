@@ -1,4 +1,4 @@
-package com.codeenterprise.dto.fraud;
+package com.codeenterprise.configuration.dto.fraud;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

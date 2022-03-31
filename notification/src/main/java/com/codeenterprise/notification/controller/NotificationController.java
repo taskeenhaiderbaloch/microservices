@@ -1,6 +1,6 @@
 package com.codeenterprise.notification.controller;
 
-import com.codeenterprise.dto.notification.NotificationRequest;
+import com.codeenterprise.configuration.dto.notification.NotificationRequest;
 import com.codeenterprise.notification.service.NotificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

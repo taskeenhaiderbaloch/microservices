@@ -1,4 +1,4 @@
-package com.codeenterprise.dto.customer;
+package com.codeenterprise.configuration.dto.customer;
 
 import lombok.Builder;
 import lombok.Data;

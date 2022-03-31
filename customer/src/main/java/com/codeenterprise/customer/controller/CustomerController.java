@@ -1,7 +1,7 @@
 package com.codeenterprise.customer.controller;
 
 
-import com.codeenterprise.dto.customer.CustomerRequest;
+import com.codeenterprise.configuration.dto.customer.CustomerRequest;
 import com.codeenterprise.customer.service.CustomerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

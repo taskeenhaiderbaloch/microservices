@@ -1,6 +1,6 @@
 package com.codeenterprise.fraud.controller;
 
-import com.codeenterprise.dto.fraud.FraudsterCheckResponse;
+import com.codeenterprise.configuration.dto.fraud.FraudsterCheckResponse;
 import com.codeenterprise.fraud.service.FraudCheckHistoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

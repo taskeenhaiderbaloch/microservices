@@ -1,4 +1,4 @@
-package com.codeenterprise.config;
+package com.codeenterprise.configuration.rabbitmq;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

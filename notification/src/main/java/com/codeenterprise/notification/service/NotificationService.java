@@ -1,6 +1,6 @@
 package com.codeenterprise.notification.service;
 
-import com.codeenterprise.dto.notification.NotificationRequest;
+import com.codeenterprise.configuration.dto.notification.NotificationRequest;
 import com.codeenterprise.notification.entity.Notification;
 import com.codeenterprise.notification.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
