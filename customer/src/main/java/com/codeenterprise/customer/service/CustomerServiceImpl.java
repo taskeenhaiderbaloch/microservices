@@ -1,10 +1,13 @@
 package com.codeenterprise.customer.service;
 
-import com.codeenterprise.customer.client.FraudClient;
+
+import com.codeenterprise.clients.fraud.FraudClients;
+import com.codeenterprise.clients.notification.NotificationClient;
 import com.codeenterprise.customer.entity.Customer;
 import com.codeenterprise.dto.customer.CustomerRequest;
 import com.codeenterprise.customer.repository.CustomerRepository;
 import com.codeenterprise.dto.fraud.FraudsterCheckResponse;
+import com.codeenterprise.dto.notification.NotificationRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,10 @@ public class CustomerServiceImpl {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private FraudClient fraudClient;
+    private FraudClients fraudClient;
+
+    @Autowired
+    private NotificationClient notificationClient;
 
     public void registerCustomer(CustomerRequest request) throws IllegalAccessException {
         Customer customer = Customer.builder()
@@ -31,5 +37,14 @@ public class CustomerServiceImpl {
         if (response.getIsFraudster()){
             throw new IllegalAccessException("Fraudster Customer");
         }
+
+        NotificationRequest notificationRequest= NotificationRequest.builder()
+                .toCustomerId(customer.getId())
+                .toCustomerEmail(customer.getEmail())
+                .message(String.format("Hi %s, Welcome to code enterprise... ", customer.getFirstName()))
+                .sender(customer.getFirstName())
+                .build();
+
+        notificationClient.sendNotification(notificationRequest);
     }
 }
