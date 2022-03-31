@@ -1,6 +1,7 @@
 services:
   mysql:
     image: mysql:latest
+    container_name: mysql
     volumes:
       - "./.mysql-data/db:/var/lib/mysql"
     restart: always
@@ -11,20 +12,101 @@ services:
       MYSQL_DATABASE: customer
       MYSQL_USER: codeenterprise
       MYSQL_PASSWORD: password
+    networks:
+      - database
 
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+    networks:
+      - database
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
     ports:
       - 9411:9411
+    networks:
+      - spring
   rabbitmq:
     image: rabbitmq:3.9.11-management-alpine
     container_name: rabbitmq
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      - spring
+  eureka-server:
+    image: taskeenhaider7/euraka-server:latest
+    container_name: eureka-server
+    ports:
+      - 8761:8761
+    depends_on:
+      - zipkin
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+  api-gateway:
+    image: taskeenhaider7/api-gateway:latest
+    container_name: api-gateway
+    ports:
+      - 8084:8084
+    depends_on:
+      - zipkin
+      - eureka-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+  customer:
+    image: taskeenhaider7/customer:latest
+    container_name: customer
+    ports:
+      - 8081:8081
+    depends_on:
+      - zipkin
+      - eureka-server
+      - mysql
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - database
+  fraud:
+    image: taskeenhaider7/fraud:latest
+    container_name: fraud
+    ports:
+      - 8082:8082
+    depends_on:
+      - zipkin
+      - eureka-server
+      - mysql
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - database
+  notification:
+    image: taskeenhaider7/notification:latest
+    container_name: notification
+    ports:
+      - 8083:8083
+    depends_on:
+      - zipkin
+      - eureka-server
+      - mysql
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - spring
+      - database
+networks:
+  database:
+    driver: bridge
+  spring:
+    driver: bridge
