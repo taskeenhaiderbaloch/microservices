@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-config
+data:
+  POSTGRES_DB: codeenterprise
+  POSTGRES_USER: codeenterprise
+  POSTGRES_PASSWORD: password

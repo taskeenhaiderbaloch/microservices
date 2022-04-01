@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
         "com.codeenterprise.configuration"
 
 })
-@EnableEurekaClient
+//@EnableEurekaClient
 @EnableFeignClients(basePackages = "com.codeenterprise.clients")
 public class CustomerApplication {
     public static void main(String[] args) {
